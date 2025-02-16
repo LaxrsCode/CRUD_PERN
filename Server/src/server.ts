@@ -1,4 +1,5 @@
 import express from "express"
+import cors,{CorsOptions} from 'cors'
 import router from "./router"
 import db from "../src/config/db"
 
@@ -20,6 +21,21 @@ async function connectDB() {
 connectDB()
 //Instancia de express
 const server = express()
+
+//Cors
+const corsOptions:CorsOptions = {
+    origin:function(origin,callback){
+        console.log('Origen recibido:', origin)
+        if(origin === process.env.FRONT_URL){
+            callback(null,true)
+            console.log('Permitir')
+        }else{
+            callback(new Error('Error Cors'))
+            console.log('Denegar')
+        }
+    }
+}
+server.use(cors(corsOptions))
 
 //Leer datos de formularios
 server.use(express.json())
