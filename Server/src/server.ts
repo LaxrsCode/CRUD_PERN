@@ -1,7 +1,7 @@
 import express from "express"
 import cors,{CorsOptions} from 'cors'
 import router from "./router"
-import db from "../src/config/db"
+import db from './config/db'
 
 //Conectamos a la base de datos
 async function connectDB() {
